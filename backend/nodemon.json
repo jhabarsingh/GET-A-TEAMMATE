@@ -1,0 +1,7 @@
+{
+	"env": {
+		"MONGO_USER": "jhabarsingh",
+		"MONGO_PASSWD": "jhabarsingh",
+		"MONGO_DB": "dbname"
+	}
+}

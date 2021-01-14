@@ -1,30 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { URLSearchParams } = require('url');
+const mongoose = require('mongoose');
 const graphqlHttp = require("express-graphql").graphqlHTTP;
 const { buildSchema } = require('graphql');
-
+const Event = require("./models/events");
 
 const app = express();
 global.URLSearchParams = URLSearchParams;
 app.use(bodyParser.json());
-
-const eventsList = [
-	{
-		_id: "1",
-		title: "Name is Rocky",
-		desciption: "Yashraj production film",
-		price: 12000000,
-		date: "12/12/21"
-	},
-	{
-		_id: "2",
-		title: "Name is Rocky",
-		desciption: "Yashraj production film",
-		price: 12000100,
-		date: "12/12/31"
-	},
-]
 
 app.use('/graphql', graphqlHttp({
 	schema: buildSchema(`
@@ -62,19 +46,28 @@ app.use('/graphql', graphqlHttp({
 			return eventsList;
 		},
 		createEvent: (args) => {
-			const event = {
-				_id: Math.random().toString(),
+			const event = new Event({
 				title: args.event.title,
 				description: args.event.description,
 				price: args.event.price,
-				date: args.event.date
-			}
+				date: new Date(args.event.date)
+			});
 
-			return event;
+			return event.save().then(res => {
+				return {...result._doc};
+			}).catch( err => {
+				console.log(err);
+				throw err;
+			});
 		}
 	},
 	graphiql: true,
 }));
 
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWD}@cluster0.xyqf5.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`)
+.then(() => {
+	app.listen(3000);
+}).catch((err) => {
+	console.log(err);
+})
 
-app.listen(3000);
