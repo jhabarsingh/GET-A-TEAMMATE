@@ -1,0 +1,19 @@
+{
+  "name": "get-a-teammate",
+  "version": "1.0.0",
+  "description": "this app is for those who are working on a project and looking for a teammate",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon -e js,graphql src/index.js"
+  },
+  "keywords": [
+    "graphql"
+  ],
+  "author": "jhabar singh bhati",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.11.11",
+    "nodemon": "^2.0.7"
+  }
+}
