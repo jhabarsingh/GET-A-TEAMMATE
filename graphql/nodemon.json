@@ -1,9 +1,0 @@
-{
-    "env": {
-        "MONGO_USER": "9592864914",
-        "MONGO_PASSWORD": "9592864914",
-        "MONGO_DB": "getateammate"
-    	"CLIENT_ID": "fc2543f27eef381af007",
-	"CLIENT_SECRET": "8b929719ad4616156a4f1791b2f199697c333f84"
-    }
-}
